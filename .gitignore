@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.log
+.env
+*.env
+*.sqlite3
+
+# Virtual env
+venv/
+ENV/
+env/
+
+# Docker
+*.tar
+*.img
+
+# OS files
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Secrets
+secrets/
