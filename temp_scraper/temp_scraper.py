@@ -8,13 +8,21 @@ def get_temperature(city):
     url = f"https://wttr.in/{city}?format=%t"
     try:
         response = requests.get(url)
+        temp = response.text.strip("+", "").replace("°C", "")
         response.raise_for_status()
-        return response.text.strip()
+        return float(temp)
     except requests.RequestException as e:
-        return f"Error: {e}"
+        print(f"Error getting temperature for {city}: {e}")
+        return None
     
+# create a Kafka producer
+producer = KafkaProducer(bootstrap_servers='kafka:9092')
+
 
 temperature_data = {city: get_temperature(city) for city in cities}
 for city, temp in temperature_data.items():
-    print(f"{city}: {temp}")
+    if temp is not None:
+        data = json.dumps({"city": city, "temp_c": temp, "timestamp": int(time.time())})
+        producer.send("temperature_data", data.encode("utf-8"))
+        print(f"Sent data for {city} to kafka: {data}")
         
