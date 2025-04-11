@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: temperature-scraper
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: scraper
+              image: temp-scraper:latest
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: KAFKA_BROKERS
+                  value: "kafka:9092"
+          restartPolicy: OnFailure
