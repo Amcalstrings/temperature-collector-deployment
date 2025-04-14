@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: temperature-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: temperature-consumer
+  template:
+    metadata:
+      labels:
+        app: temperature-consumer
+    spec:
+      containers:
+        - name: temperature-consumer
+          image: temp-consumer:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: kafka:9092
+            - name: POSTGRES_HOST
+              value: postgres
+            - name: POSTGRES_DB
+              value: temperatures
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
