@@ -47,6 +47,15 @@ module "eks" {
   }
 }
 
+resource "aws_ecr_repository" "scraper" {
+  name = "temp-scraper"
+}
+
+resource "aws_ecr_repository" "consumer" {
+  name = "kafka-consumer"
+}
+
 output "cluster_endpoint" {
   value = module.eks.cluster_endpoint
 }
+
