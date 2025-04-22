@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: temperature-consumer
-          image: temp-consumer:latest
+          image: 717279705656.dkr.ecr.us-east-1.amazonaws.com/kafka-consumer:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
