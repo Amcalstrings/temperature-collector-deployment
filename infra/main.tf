@@ -27,6 +27,7 @@ module "eks" {
   version         = "~> 20.0"
   cluster_name    = var.cluster_name
   cluster_version = "1.29"
+  cluster_endpoint_public_access = true
   subnet_ids      = module.vpc.private_subnets
   vpc_id          = module.vpc.vpc_id
 
@@ -41,6 +42,14 @@ module "eks" {
     }
   }
 
+  access_entries = {
+    admin-user = {
+      principal_arn     = "arn:aws:iam::717279705656:user/Amcalstrings"
+      kubernetes_groups = ["cluster-admin"]
+      type              = "STANDARD"
+    }
+  }
+
   tags = {
     Environment = "dev"
     Project     = "temperature-data"
@@ -49,10 +58,12 @@ module "eks" {
 
 resource "aws_ecr_repository" "scraper" {
   name = "temp-scraper"
+  force_delete = true
 }
 
 resource "aws_ecr_repository" "consumer" {
   name = "kafka-consumer"
+  force_delete = true
 }
 
 output "cluster_endpoint" {

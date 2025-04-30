@@ -14,5 +14,5 @@ spec:
               imagePullPolicy: IfNotPresent
               env:
                 - name: KAFKA_BROKERS
-                  value: "kafka:9092"
+                  value: "kafka.kafka.svc.cluster.local:9092"
           restartPolicy: OnFailure
