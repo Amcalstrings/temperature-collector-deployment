@@ -16,7 +16,7 @@ def get_temperature(city):
         return None
     
 # create a Kafka producer
-producer = KafkaProducer(bootstrap_servers='kafka:9092')
+producer = KafkaProducer(bootstrap_servers='kafka.kafka.svc.cluster.local:9092')
 
 
 temperature_data = {city: get_temperature(city) for city in cities}

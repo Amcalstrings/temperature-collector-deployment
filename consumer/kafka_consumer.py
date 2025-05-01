@@ -17,7 +17,7 @@ cur = conn.cursor()
 #create kafka consumer
 consumer = KafkaConsumer(
     'temperature_data',
-    bootstrap_servers='kafka:9092',
+    bootstrap_servers='kafka.kafka.svc.cluster.local:9092',
     auto_offset_reset='earliest',
     enable_auto_commit=True,
     group_id='temp-consumer-group',
