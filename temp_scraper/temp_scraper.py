@@ -8,7 +8,7 @@ def get_temperature(city):
     url = f"https://wttr.in/{city}?format=%t"
     try:
         response = requests.get(url)
-        temp = response.text.strip("+", "").replace("°C", "")
+        temp = response.text.replace("°C", "").strip("+")
         response.raise_for_status()
         return float(temp)
     except requests.RequestException as e:
