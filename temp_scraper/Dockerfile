@@ -20,5 +20,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the scraper script
 COPY temp_scraper.py .
 
-# Set the default command
+# Set default command
 CMD ["python", "temp_scraper.py"]

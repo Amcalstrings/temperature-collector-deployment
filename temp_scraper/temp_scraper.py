@@ -33,6 +33,6 @@ try:
             producer.send("temperature_data", value=data)
             print(f"Sent data for {city} to kafka: {data}")
 finally:
-    # Ensure all messages are sent and producer shuts down cleanly
+    # producer shuts down cleanly
     producer.flush()
     producer.close()
