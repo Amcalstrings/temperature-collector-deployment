@@ -62,7 +62,7 @@ for message in consumer:
         conn.commit()
         print(f"Stored in DB: {data}")
 
-        # Upload to IPFS
+        # Upload data to IPFS
         ipfs_url = upload_to_ipfs(data)
         if ipfs_url:
             print(f"Stored in IPFS: {ipfs_url}")

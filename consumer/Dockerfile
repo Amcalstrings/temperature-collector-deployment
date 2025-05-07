@@ -13,4 +13,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY kafka_consumer.py .
 
+#default command
 CMD ["python", "kafka_consumer.py"]
