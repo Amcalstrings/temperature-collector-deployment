@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: temperature-consumer
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -15,7 +16,7 @@ spec:
       containers:
         - name: temperature-consumer
           image: 717279705656.dkr.ecr.us-east-1.amazonaws.com/kafka-consumer:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: kafka.kafka.svc.cluster.local:9092
@@ -24,6 +25,14 @@ spec:
             - name: POSTGRES_DB
               value: temperatures
             - name: POSTGRES_USER
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+      imagePullSecrets:
+        - name: ecr-creds

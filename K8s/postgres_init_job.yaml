@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postgres-init
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - name: psql
+        image: postgres:15
+        command: ["sh", "-c", "psql postgresql://postgres:postgres@postgres:5432/tempdb -f /schema/schema.sql"]
+        volumeMounts:
+        - name: schema-volume
+          mountPath: /schema
+      restartPolicy: OnFailure
+      volumes:
+      - name: schema-volume
+        configMap:
+          name: db-schema
+  backoffLimit: 3

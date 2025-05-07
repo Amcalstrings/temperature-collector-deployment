@@ -5,14 +5,16 @@ metadata:
 spec:
   schedule: "0 * * * *"
   jobTemplate:
-    spec:
+    spec:   
       template:
         spec:
           containers:
             - name: scraper
               image: 717279705656.dkr.ecr.us-east-1.amazonaws.com/temp-scraper:latest
-              imagePullPolicy: IfNotPresent
+              imagePullPolicy: Always
               env:
                 - name: KAFKA_BROKERS
                   value: "kafka.kafka.svc.cluster.local:9092"
           restartPolicy: OnFailure
+          imagePullSecrets:
+            - name: ecr-creds
